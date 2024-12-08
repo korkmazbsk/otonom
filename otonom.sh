@@ -5,10 +5,10 @@ instance_types_old=("r7a.16xlarge" "m7a.16xlarge" "c7a.16xlarge")
 instance_types_new=("r7i.16xlarge" "m7i.16xlarge" "c7i.16xlarge")
 
 # Eski bölgeler
-regions_old=("us-east-1" "us-east-2" "ap-northeast-1" "eu-central-1" "eu-west-1" "eu-north-1")
+regions_old=("us-east-1" "us-east-2" "ap-northeast-1" "eu-central-1" "eu-west-1" "eu-north-1" "us-west-2")
 
 # Yeni bölgeler
-regions_new=("us-west-1" "us-west-2" "eu-west-2" "eu-west-3")
+regions_new=("us-west-1" "eu-west-2" "eu-west-3")
 
 # Her bölge için AMI ID'lerini manuel olarak belirleyin
 declare -A ami_ids

@@ -12,16 +12,16 @@ regions_new=("us-west-1" "eu-west-2" "eu-west-3")
 
 # Her bölge için AMI ID'lerini manuel olarak belirleyin
 declare -A ami_ids
-ami_ids["us-east-1"]="ami-0866a3c8686eaeeba"
+ami_ids["us-east-1"]="ami-0e2c8caa4b6378d8c"
 ami_ids["us-east-2"]="ami-036841078a4b68e14"
 ami_ids["ap-northeast-1"]="ami-0b2cd2a95639e0e5b"
-ami_ids["eu-central-1"]="ami-0084a47cc718c111a"
+ami_ids["eu-central-1"]="ami-0a628e1e89aaedf80"
 ami_ids["eu-west-1"]="ami-0e9085e60087ce171"
 ami_ids["eu-north-1"]="ami-075449515af5df0d1"
-ami_ids["us-west-1"]="ami-0da424eb883458071"
-ami_ids["us-west-2"]="ami-04dd23e62ed049936"
-ami_ids["eu-west-2"]="ami-0e8d228ad90af673b"
-ami_ids["eu-west-3"]="ami-045a8ab02aadf4f88"
+ami_ids["us-west-1"]="ami-0657605d763ac72a8"
+ami_ids["us-west-2"]="ami-05d38da78ce859165"
+ami_ids["eu-west-2"]="ami-05c172c7f0d3aed00"
+ami_ids["eu-west-3"]="ami-09be70e689bddcef5"
 
 # Başarılı ve başarısız bölgeler için diziler
 success_regions=()

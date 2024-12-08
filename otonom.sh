@@ -13,7 +13,7 @@ regions_new=("us-west-1" "eu-west-2" "eu-west-3")
 # Her bölge için AMI ID'lerini manuel olarak belirleyin
 declare -A ami_ids
 ami_ids["us-east-1"]="ami-0866a3c8686eaeeba"
-ami_ids["us-east-2"]="ami-0ea3c35c5c3284d82"
+ami_ids["us-east-2"]="ami-036841078a4b68e14"
 ami_ids["ap-northeast-1"]="ami-0b2cd2a95639e0e5b"
 ami_ids["eu-central-1"]="ami-0084a47cc718c111a"
 ami_ids["eu-west-1"]="ami-0e9085e60087ce171"

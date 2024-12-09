@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # On-demand instance türleri
-instance_types_old=("c7a.16xlarge")
+instance_types_old=("m7a.16xlarge" "c7a.16xlarge")
 instance_types_new=("m7i.16xlarge" "c7i.16xlarge")
 
 # Eski bölgeler

@@ -1,14 +1,10 @@
 #!/bin/bash
 
 # On-demand instance türleri
-instance_types_old=("m7a.16xlarge" "c7a.16xlarge")
-instance_types_new=("m7i.16xlarge" "c7i.16xlarge")
+instance_types_old=("r7a.16xlarge" "m7a.16xlarge")
 
 # Eski bölgeler
 regions_old=("us-east-1" "us-east-2" "ap-northeast-1" "eu-central-1" "eu-west-1" "eu-north-1" "us-west-2")
-
-# Yeni bölgeler
-regions_new=("us-west-1" "eu-west-2" "eu-west-3")
 
 # Her bölge için AMI ID'lerini manuel olarak belirleyin
 declare -A ami_ids
@@ -18,10 +14,7 @@ ami_ids["ap-northeast-1"]="ami-0b2cd2a95639e0e5b"
 ami_ids["eu-central-1"]="ami-0a628e1e89aaedf80"
 ami_ids["eu-west-1"]="ami-0e9085e60087ce171"
 ami_ids["eu-north-1"]="ami-075449515af5df0d1"
-ami_ids["us-west-1"]="ami-0657605d763ac72a8"
 ami_ids["us-west-2"]="ami-05d38da78ce859165"
-ami_ids["eu-west-2"]="ami-05c172c7f0d3aed00"
-ami_ids["eu-west-3"]="ami-09be70e689bddcef5"
 
 # Başarılı ve başarısız bölgeler için diziler
 success_regions=()
@@ -70,20 +63,16 @@ create_on_demand_request() {
     local region=$1
     local types=("$@")  # Alınan sunucu türlerini listele
     echo "Bölge: $region"
-    
+
     # Bölgeye göre doğru instance türünü bul
-    if [[ " ${regions_old[@]} " =~ " $region " ]]; then
-        instance_type=$(find_instance_type "$region" "${instance_types_old[@]}")
-    else
-        instance_type=$(find_instance_type "$region" "${instance_types_new[@]}")
-    fi
-    
+    instance_type=$(find_instance_type "$region" "${instance_types_old[@]}")
+
     if [ -z "$instance_type" ]; then
         echo "$region bölgesinde uygun bir instance türü bulunamadı."
         return
     fi
     echo "Seçilen instance türü: $instance_type"
-    
+
     # Manuel AMI ID'sini kullan
     ami_id=${ami_ids[$region]}
     if [ -z "$ami_id" ]; then
@@ -106,7 +95,7 @@ create_on_demand_request() {
 
     # Alt ağ (Subnet) ID'sini bul
     subnet_id=$(aws ec2 describe-subnets --region "$region" --query "Subnets[0].SubnetId" --output text)
-    
+
     if [ "$subnet_id" == "None" ]; then
         echo "$region bölgesinde alt ağ bulunamadı."
         return
@@ -114,7 +103,7 @@ create_on_demand_request() {
 
     # On-demand instance talebi oluştur
     echo "$region bölgesinde uygun bir tür için on-demand instance talebi oluşturuluyor..."
-    
+
     instance_id=$(aws ec2 run-instances \
         --region "$region" \
         --image-id "$ami_id" \
@@ -123,7 +112,7 @@ create_on_demand_request() {
         --subnet-id "$subnet_id" \
         --count 1 \
         --query 'Instances[0].InstanceId' --output text)
-    
+
     echo "On-demand instance talebi oluşturuldu: $instance_id"
     success_regions+=("$region:$instance_type")
 }
@@ -132,12 +121,6 @@ create_on_demand_request() {
 for region in "${regions_old[@]}"; do
     terminate_other_instances "$region" instance_types_old[@]
     create_on_demand_request "$region" "${instance_types_old[@]}"
-done
-
-# Yeni bölgeler için talepler
-for region in "${regions_new[@]}"; do
-    terminate_other_instances "$region" instance_types_new[@]
-    create_on_demand_request "$region" "${instance_types_new[@]}"
 done
 
 # Sonuçları yazdırma

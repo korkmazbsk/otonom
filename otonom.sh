@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # On-demand instance türleri
-instance_types_old=("r7a.12xlarge" "m7a.16xlarge")
+instance_types_old=("r7a.16xlarge" "m7a.16xlarge")
 
 # Eski bölgeler
 regions_old=("us-east-1" "us-east-2" "ap-northeast-1" "eu-north-1" "eu-central-1" "eu-west-1" "us-west-2")
